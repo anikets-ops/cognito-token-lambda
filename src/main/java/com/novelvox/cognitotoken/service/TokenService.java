@@ -38,7 +38,7 @@ public class TokenService {
 		if (request.getUserId() == null || request.getUserId().isBlank()) {
 			throw new IllegalArgumentException("UserId is mandatory.");
 		}else if(request.getUserId().equals(Constants.USER_KEY)) {
-			return;
+			System.out.println("USER_KEY Verified SuccessFully");
 		}else {
 			throw new IllegalArgumentException("UserId is mandatory.");
 		}
