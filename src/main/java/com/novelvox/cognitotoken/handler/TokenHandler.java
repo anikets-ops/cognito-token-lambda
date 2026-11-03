@@ -18,7 +18,6 @@ public class TokenHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 
 	private final ObjectMapper objectMapper;
 	private final TokenService tokenService;
-	public static LambdaLogger logger;
 	public TokenHandler() {
 		this.objectMapper = new ObjectMapper();
 		this.tokenService = new TokenService();
@@ -28,7 +27,7 @@ public class TokenHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 	@Override
 	public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
 
-		logger = context.getLogger();
+		LambdaLogger logger = context.getLogger();
 
 		try {
 
