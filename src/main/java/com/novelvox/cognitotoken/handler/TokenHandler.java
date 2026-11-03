@@ -8,6 +8,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.novelvox.cognitotoken.dto.TokenRequest;
 import com.novelvox.cognitotoken.dto.TokenResponse;
@@ -17,16 +18,17 @@ public class TokenHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 
 	private final ObjectMapper objectMapper;
 	private final TokenService tokenService;
-
+	public static LambdaLogger logger;
 	public TokenHandler() {
 		this.objectMapper = new ObjectMapper();
 		this.tokenService = new TokenService();
+
 	}
 
 	@Override
 	public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
 
-		LambdaLogger logger = context.getLogger();
+		logger = context.getLogger();
 
 		try {
 
@@ -80,4 +82,15 @@ public class TokenHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 	    return headers;
 	}
 
+//	public static void main(String[] args) throws JsonProcessingException {
+//
+//		TokenRequest tokenRequest = new TokenRequest();
+//		tokenRequest.setUserId("rn0CThbJkUGxBsWhmXsfpqR2cup1MYFZXqfFfWbnRbxIHiYB3FhalemAVB29gGax");
+//		tokenRequest.setTimestamp(System.currentTimeMillis());
+//
+////		logger.log("Request received for UserId : " + tokenRequest.getUserId());
+//		TokenService tokenService = new TokenService();
+//		TokenResponse response = tokenService.generateToken(tokenRequest);
+//		System.out.println(new ObjectMapper().writeValueAsString(response));
+//	}
 }

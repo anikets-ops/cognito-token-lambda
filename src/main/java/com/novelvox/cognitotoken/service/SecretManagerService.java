@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.novelvox.cognitotoken.constants.Constants;
 import com.novelvox.cognitotoken.model.CognitoSecret;
 
+import com.novelvox.cognitotoken.util.UtilitiesService;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -24,6 +25,7 @@ public class SecretManagerService {
 			return objectMapper.readValue(response.secretString(), CognitoSecret.class);
 
 		} catch (Exception ex) {
+			UtilitiesService.logExceptionError(ex);
 			throw new RuntimeException("Unable to read Cognito Secret", ex);
 		}
 	}
